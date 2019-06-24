@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TipCalculator.MainPage"
+             xmlns:converter="clr-namespace:TipCalculator.Converters">
+             
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ConverterToMoney x:Key="ToMoney"></converter:ConverterToMoney>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout>
+        <TableView>
+            <TableSection Title="Information" >
+                <EntryCell Label="Total $" Text="{Binding tipModel.Total}" Keyboard="Numeric" x:Name="txtTotal"></EntryCell>
+                <EntryCell Label="Tip (%) " Text="{Binding tipModel.Tip}" Keyboard="Numeric" x:Name="txtTip"></EntryCell>
+                <EntryCell Label="# of people " Text="{Binding tipModel.People}" Keyboard="Numeric" x:Name="txtPeople"></EntryCell>
+            </TableSection>
+            <TableSection>
+                <ViewCell>
+                    <ViewCell.View>
+                        <Button Text="Calculate" Command="{Binding OperationsCommand}"></Button>
+                    </ViewCell.View>
+                </ViewCell>
+            </TableSection>
+            <TableSection Title="Results">
+                <TextCell Text="Tip:" Detail="{Binding tipModel.TipPay, Converter={StaticResource ToMoney}}" x:Name="lblTip"></TextCell>
+                <TextCell Text="Total:" Detail="{Binding tipModel.TipPerPeople, Converter={StaticResource ToMoney}}" x:Name="lblTotal"></TextCell>
+                <TextCell Text="Tip per person:" Detail="{Binding tipModel.TotalPay, Converter={StaticResource ToMoney}}" x:Name="lblTipPerson"></TextCell>
+                <TextCell Text="Total per person:" Detail="{Binding tipModel.TotalPerPerson, Converter={StaticResource ToMoney}  }" x:Name="lblTotalPerson"></TextCell>
+            </TableSection>
+        </TableView>
+    </StackLayout>
+
+</ContentPage>
